@@ -1,23 +1,30 @@
 # Calculadora para Quitar Financiamento
 
-## Endereço esperado
+## Endereço
 
 `https://zetz-capital.github.io/calculadora-quitar-financiamento/`
 
-## Padrão
+## Estrutura preservada
 
-O sistema SAC é carregado como padrão:
-
-```js
-system: "sac"
+```text
+calculadora-quitar-financiamento/
+├── index.html
+├── style.css
+├── script.js
+├── README.md
+└── assets/
+    └── favicon.svg
 ```
 
-## Publicação
+## Funcionalidades
 
-Crie o repositório público:
+- SAC selecionado por padrão.
+- Sistema Price opcional.
+- Pagamento extra mensal.
+- Pagamento extra anual.
+- Pagamento único em um mês escolhido.
+- Economia Total de Juros em destaque.
+- Comparação de prazo e juros.
+- Gráfico dos saldos devedores.
 
-`calculadora-quitar-financiamento`
-
-Envie os arquivos para a raiz e ative:
-
-`Settings > Pages > Deploy from a branch > main > /(root)`
+A paleta é idêntica à Calculadora de Juros Compostos.

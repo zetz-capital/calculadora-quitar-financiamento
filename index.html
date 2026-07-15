@@ -8,101 +8,145 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=2">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=3">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" defer></script>
-  <script src="script.js?v=2" defer></script>
+  <script src="script.js?v=3" defer></script>
 </head>
 <body>
   <header class="topbar">
-    <a href="https://zetz-capital.github.io/zetz-capital/" class="brand">
-      <img src="assets/favicon.svg" alt="">
-      <span>ZETZ CAPITAL</span>
-    </a>
-    <a href="https://zetz-capital.github.io/zetz-capital/" class="back">← Todas as ferramentas</a>
+    <div class="container topbar-content">
+      <a href="https://zetz-capital.github.io/zetz-capital/" class="brand">
+        <span class="brand-mark">Z</span>
+        <span>Zetz Capital</span>
+      </a>
+      <a href="https://zetz-capital.github.io/zetz-capital/" class="back">← Todas as ferramentas</a>
+    </div>
   </header>
 
   <main>
     <section class="hero">
-      <p class="kicker">FINANCIAMENTO IMOBILIÁRIO</p>
-      <h1>Quanto antes você pode quitar seu imóvel?</h1>
-      <p>Compare o contrato original com pagamentos extras e veja a redução do prazo e dos juros.</p>
+      <div class="container hero-content">
+        <span class="eyebrow">FINANCIAMENTO IMOBILIÁRIO</span>
+        <h1>Quanto antes você pode quitar seu imóvel?</h1>
+        <p>Compare seu contrato com pagamentos extras mensais, anuais ou únicos e veja quanto economiza em juros.</p>
+      </div>
     </section>
 
-    <section class="calculator">
-      <form id="payoff-form" class="panel">
-        <div class="panel-title"><span>1</span><div><h2>Dados do financiamento</h2><p>Use o saldo e o prazo restantes.</p></div></div>
-        <div class="grid">
-          <label class="field full">Saldo devedor atual
-            <div class="money"><span>R$</span><input id="balance" inputmode="decimal"></div>
-          </label>
-          <label class="field">Taxa de juros anual
-            <div class="suffix"><input id="rate" type="number" step="0.01" min="0"><span>% a.a.</span></div>
-          </label>
-          <label class="field">Sistema de amortização
-            <select id="system">
-              <option value="sac">SAC — parcela decrescente</option>
-              <option value="price">Price — parcela constante</option>
-            </select>
-          </label>
-          <label class="field">Prazo restante
-            <div class="suffix"><input id="years" type="number" min="0" max="50"><span>anos</span></div>
-          </label>
-          <label class="field">Meses adicionais
-            <div class="suffix"><input id="months" type="number" min="0" max="11"><span>meses</span></div>
-          </label>
-        </div>
+    <section class="calculator-section">
+      <div class="container calculator-grid">
+        <form id="payoff-form" class="calculator-card">
+          <div class="card-heading">
+            <span class="step-number">1</span>
+            <div><h2>Dados do financiamento</h2><p>Informe o saldo e o prazo restantes.</p></div>
+          </div>
 
-        <div class="divider"></div>
-        <div class="panel-title compact"><span>2</span><div><h2>Pagamentos extras</h2><p>A simulação reduz o prazo do financiamento.</p></div></div>
-        <div class="grid">
-          <label class="field full">Valor extra todos os meses
-            <div class="money"><span>R$</span><input id="monthly-extra" inputmode="decimal"></div>
-          </label>
-          <label class="field">Valor extra periódico
-            <div class="money"><span>R$</span><input id="annual-extra" inputmode="decimal"></div>
-          </label>
-          <label class="field">Frequência do extra
-            <select id="annual-extra-month">
-              <option value="12">A cada 12 meses</option>
-              <option value="6">A cada 6 meses</option>
-            </select>
-          </label>
-          <label class="field">Pagamento único
-            <div class="money"><span>R$</span><input id="one-time-extra" inputmode="decimal"></div>
-          </label>
-          <label class="field">Após quantos meses?
-            <div class="suffix"><input id="one-time-month" type="number" min="1"><span>meses</span></div>
-          </label>
-        </div>
+          <div class="fields-grid">
+            <div class="field field-full">
+              <label for="balance">Saldo devedor atual</label>
+              <div class="input-prefix"><span>R$</span><input id="balance" inputmode="decimal"></div>
+            </div>
+            <div class="field">
+              <label for="rate">Taxa de juros anual</label>
+              <div class="input-suffix"><input id="rate" type="number" step="0.01" min="0"><span>% a.a.</span></div>
+            </div>
+            <div class="field">
+              <label for="system">Sistema de amortização</label>
+              <select id="system">
+                <option value="sac">SAC — parcela decrescente</option>
+                <option value="price">Price — parcela constante</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="years">Anos restantes</label>
+              <div class="input-suffix"><input id="years" type="number" min="0" max="50"><span>anos</span></div>
+            </div>
+            <div class="field">
+              <label for="months">Meses adicionais</label>
+              <div class="input-suffix"><input id="months" type="number" min="0" max="11"><span>meses</span></div>
+            </div>
+          </div>
 
-        <button type="submit">Calcular economia</button>
-        <button type="button" id="reset" class="secondary">Restaurar valores</button>
-        <p id="error" class="error" role="alert"></p>
-      </form>
+          <div class="section-divider"></div>
 
-      <section class="panel results">
-        <div class="panel-title"><span>3</span><div><h2>Resultado</h2><p>Estimativa sem seguros, tarifas, TR ou correções adicionais.</p></div></div>
-        <div class="headline-result">
-          <span>Você pode quitar</span>
-          <strong id="time-saved">—</strong>
-          <small>antes do prazo original</small>
-        </div>
-        <div class="metrics">
-          <article><span>Economia de juros</span><strong id="interest-saved">R$ 0,00</strong></article>
-          <article><span>Novo prazo</span><strong id="new-term">—</strong></article>
-          <article><span>Juros sem extras</span><strong id="base-interest">R$ 0,00</strong></article>
-          <article><span>Juros com extras</span><strong id="extra-interest">R$ 0,00</strong></article>
-        </div>
-        <div class="chart-box"><canvas id="balance-chart"></canvas></div>
-      </section>
+          <div class="card-heading compact">
+            <span class="step-number">2</span>
+            <div><h2>Pagamentos extras</h2><p>Todos os pagamentos são direcionados ao principal.</p></div>
+          </div>
+
+          <div class="fields-grid">
+            <div class="field field-full">
+              <label for="monthly-extra">Extra todos os meses</label>
+              <div class="input-prefix"><span>R$</span><input id="monthly-extra" inputmode="decimal"></div>
+            </div>
+
+            <div class="field field-full">
+              <label for="annual-extra">Extra uma vez por ano</label>
+              <div class="input-prefix"><span>R$</span><input id="annual-extra" inputmode="decimal"></div>
+              <small class="field-help">Aplicado a cada 12 meses.</small>
+            </div>
+
+            <div class="field">
+              <label for="one-time-extra">Pagamento único</label>
+              <div class="input-prefix"><span>R$</span><input id="one-time-extra" inputmode="decimal"></div>
+            </div>
+            <div class="field">
+              <label for="one-time-month">Quando será pago?</label>
+              <div class="input-suffix"><input id="one-time-month" type="number" min="1"><span>mês</span></div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="primary-button" type="submit">Calcular economia</button>
+            <button class="secondary-button" type="button" id="reset">Restaurar valores</button>
+          </div>
+          <p id="error" class="form-error" role="alert"></p>
+        </form>
+
+        <section class="results-card">
+          <div class="card-heading">
+            <span class="step-number">3</span>
+            <div><h2>Resultado da simulação</h2><p>Comparação entre o plano original e o plano com extras.</p></div>
+          </div>
+
+          <div class="interest-highlight">
+            <span>Economia total de juros</span>
+            <strong id="interest-saved">R$ 0,00</strong>
+            <small>Total Interest Savings</small>
+          </div>
+
+          <div class="time-highlight">
+            <span>Você poderá quitar</span>
+            <strong id="time-saved">—</strong>
+            <small>antes do prazo original</small>
+          </div>
+
+          <div class="result-breakdown">
+            <article><span>Prazo original</span><strong id="original-term">—</strong></article>
+            <article><span>Novo prazo</span><strong id="new-term">—</strong></article>
+            <article><span>Juros sem extras</span><strong id="base-interest">R$ 0,00</strong></article>
+            <article><span>Juros com extras</span><strong id="extra-interest">R$ 0,00</strong></article>
+          </div>
+
+          <div class="chart-wrapper"><canvas id="balance-chart"></canvas></div>
+          <div class="chart-legend">
+            <span><i class="legend-dot original"></i>Plano original</span>
+            <span><i class="legend-dot accelerated"></i>Com pagamentos extras</span>
+          </div>
+        </section>
+      </div>
     </section>
 
-    <section class="explain">
-      <div><p class="kicker">COMO FUNCIONA</p><h2>Amortizações extras reduzem o principal e os juros futuros.</h2></div>
-      <div>
-        <p>No SAC, a amortização contratual é constante e a parcela diminui. No Price, a prestação-base é constante.</p>
-        <p>O SAC está selecionado como padrão. O resultado bancário pode variar por TR, seguros, tarifas e regras do contrato.</p>
+    <section class="explanation">
+      <div class="container explanation-grid">
+        <div>
+          <span class="eyebrow">COMO FUNCIONA</span>
+          <h2>Pagamento extra reduz o saldo e os juros futuros.</h2>
+        </div>
+        <div>
+          <p>No SAC, a amortização contratual é constante e as parcelas diminuem. No Price, a prestação-base permanece constante.</p>
+          <p class="disclaimer">A projeção não inclui TR, seguros, tarifas, impostos ou regras específicas do contrato bancário.</p>
+        </div>
       </div>
     </section>
   </main>
