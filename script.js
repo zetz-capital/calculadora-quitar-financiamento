@@ -19,8 +19,11 @@ let chart;
 
 function parseMoney(value) {
   const clean = String(value)
-    .replace(/\s/g, "").replace(/R\$/g, "").replace(/\./g, "")
-    .replace(",", ".").replace(/[^0-9.-]/g, "");
+    .replace(/\s/g, "")
+    .replace(/R\$/g, "")
+    .replace(/\./g, "")
+    .replace(",", ".")
+    .replace(/[^0-9.-]/g, "");
   const number = Number(clean);
   return Number.isFinite(number) ? number : 0;
 }
@@ -60,22 +63,15 @@ function simulate(values, includeExtras) {
     let extraPayment = 0;
     if (includeExtras) {
       extraPayment += values.monthlyExtra;
-
-      // Pagamento anual, exatamente a cada 12 meses.
       if (values.annualExtra > 0 && month % 12 === 0) {
         extraPayment += values.annualExtra;
       }
-
       if (values.oneTimeExtra > 0 && month === values.oneTimeMonth) {
         extraPayment += values.oneTimeExtra;
       }
     }
 
-    const totalAmortization = Math.min(
-      scheduledAmortization + extraPayment,
-      balance
-    );
-
+    const totalAmortization = Math.min(scheduledAmortization + extraPayment, balance);
     totalInterest += interest;
     balance = Math.max(0, balance - totalAmortization);
     rows.push({ month, balance });
@@ -90,12 +86,8 @@ function durationText(months) {
   const years = Math.floor(months / 12);
   const remainingMonths = months % 12;
   const parts = [];
-
   if (years) parts.push(`${years} ano${years === 1 ? "" : "s"}`);
-  if (remainingMonths) {
-    parts.push(`${remainingMonths} ${remainingMonths === 1 ? "mês" : "meses"}`);
-  }
-
+  if (remainingMonths) parts.push(`${remainingMonths} ${remainingMonths === 1 ? "mês" : "meses"}`);
   return parts.join(" e ") || "0 meses";
 }
 
@@ -115,19 +107,9 @@ function getValues() {
 function validate(values) {
   if (values.balance <= 0) return "Informe um saldo devedor maior que zero.";
   if (values.rate < 0 || values.rate > 100) return "Informe uma taxa entre 0% e 100% ao ano.";
-  if (!Number.isInteger(values.totalMonths) || values.totalMonths < 1) {
-    return "Informe um prazo restante válido.";
-  }
-  if (
-    values.monthlyExtra < 0 ||
-    values.annualExtra < 0 ||
-    values.oneTimeExtra < 0
-  ) {
-    return "Pagamentos extras não podem ser negativos.";
-  }
-  if (values.oneTimeExtra > 0 && values.oneTimeMonth < 1) {
-    return "Informe quando o pagamento único será realizado.";
-  }
+  if (!Number.isInteger(values.totalMonths) || values.totalMonths < 1) return "Informe um prazo restante válido.";
+  if (values.monthlyExtra < 0 || values.annualExtra < 0 || values.oneTimeExtra < 0) return "Pagamentos extras não podem ser negativos.";
+  if (values.oneTimeExtra > 0 && values.oneTimeMonth < 1) return "Informe quando o pagamento único será realizado.";
   return "";
 }
 
@@ -205,7 +187,7 @@ function updateChart(original, accelerated) {
         x: { grid: { display: false }, ticks: { color: "#756343", maxTicksLimit: 8 } },
         y: {
           beginAtZero: true,
-          grid: { color: "rgba(92,67,0,.10)" },
+          grid: { color: "rgba(92, 67, 0, 0.10)" },
           ticks: { color: "#756343", callback: value => compactBrl.format(value) }
         }
       }
@@ -221,11 +203,9 @@ function calculate() {
 
   const original = simulate(values, false);
   const accelerated = simulate(values, true);
+
   const savedMonths = Math.max(0, original.months - accelerated.months);
-  const savedInterest = Math.max(
-    0,
-    original.totalInterest - accelerated.totalInterest
-  );
+  const savedInterest = Math.max(0, original.totalInterest - accelerated.totalInterest);
 
   $("interest-saved").textContent = brl.format(savedInterest);
   $("time-saved").textContent = durationText(savedMonths);
@@ -239,31 +219,20 @@ function calculate() {
   if (typeof gtag === "function") {
     gtag("event", "calcular_quitacao_financiamento", {
       sistema: values.system,
-      prazo_meses: values.totalMonths,
-      possui_extra_mensal: values.monthlyExtra > 0,
-      possui_extra_anual: values.annualExtra > 0,
-      possui_pagamento_unico: values.oneTimeExtra > 0
+      prazo_meses: values.totalMonths
     });
   }
 }
 
 function restoreDefaults() {
-  $("balance").value = DEFAULT_VALUES.balance.toLocaleString("pt-BR", {
-    minimumFractionDigits: 2
-  });
+  $("balance").value = DEFAULT_VALUES.balance.toLocaleString("pt-BR", { minimumFractionDigits: 2 });
   $("rate").value = DEFAULT_VALUES.rate;
   $("years").value = DEFAULT_VALUES.years;
   $("months").value = DEFAULT_VALUES.months;
   $("system").value = DEFAULT_VALUES.system;
-  $("monthly-extra").value = DEFAULT_VALUES.monthlyExtra.toLocaleString("pt-BR", {
-    minimumFractionDigits: 2
-  });
-  $("annual-extra").value = DEFAULT_VALUES.annualExtra.toLocaleString("pt-BR", {
-    minimumFractionDigits: 2
-  });
-  $("one-time-extra").value = DEFAULT_VALUES.oneTimeExtra.toLocaleString("pt-BR", {
-    minimumFractionDigits: 2
-  });
+  $("monthly-extra").value = DEFAULT_VALUES.monthlyExtra.toLocaleString("pt-BR", { minimumFractionDigits: 2 });
+  $("annual-extra").value = DEFAULT_VALUES.annualExtra.toLocaleString("pt-BR", { minimumFractionDigits: 2 });
+  $("one-time-extra").value = DEFAULT_VALUES.oneTimeExtra.toLocaleString("pt-BR", { minimumFractionDigits: 2 });
   $("one-time-month").value = DEFAULT_VALUES.oneTimeMonth;
   $("error").textContent = "";
   calculate();

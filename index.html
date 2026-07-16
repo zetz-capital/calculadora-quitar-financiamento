@@ -3,24 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Calcule o impacto de amortizações extras em financiamentos SAC ou Price.">
-  <title>Quitar Financiamento | Zetz Capital</title>
+  <meta name="description" content="Calcule o impacto de pagamentos extras em financiamentos SAC ou Price.">
+  <title>Quitar Financiamento | Zetz</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=5">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" defer></script>
-  <script src="script.js?v=3" defer></script>
+  <script src="script.js?v=5" defer></script>
 </head>
 <body>
   <header class="topbar">
     <div class="container topbar-content">
       <a href="https://zetz-capital.github.io/zetz-capital/" class="brand">
         <span class="brand-mark">Z</span>
-        <span>Zetz Capital</span>
+        <span>Zetz</span>
       </a>
-      <a href="https://zetz-capital.github.io/zetz-capital/" class="back">← Todas as ferramentas</a>
+      <a href="https://zetz-capital.github.io/zetz-capital/" class="back-link">← Todas as ferramentas</a>
     </div>
   </header>
 
@@ -29,7 +29,7 @@
       <div class="container hero-content">
         <span class="eyebrow">FINANCIAMENTO IMOBILIÁRIO</span>
         <h1>Quanto antes você pode quitar seu imóvel?</h1>
-        <p>Compare seu contrato com pagamentos extras mensais, anuais ou únicos e veja quanto economiza em juros.</p>
+        <p>Compare o contrato original com pagamentos extras mensais, anuais e únicos.</p>
       </div>
     </section>
 
@@ -38,7 +38,7 @@
         <form id="payoff-form" class="calculator-card">
           <div class="card-heading">
             <span class="step-number">1</span>
-            <div><h2>Dados do financiamento</h2><p>Informe o saldo e o prazo restantes.</p></div>
+            <div><h2>Dados do financiamento</h2><p>Use o saldo e o prazo restantes.</p></div>
           </div>
 
           <div class="fields-grid">
@@ -71,7 +71,7 @@
 
           <div class="card-heading compact">
             <span class="step-number">2</span>
-            <div><h2>Pagamentos extras</h2><p>Todos os pagamentos são direcionados ao principal.</p></div>
+            <div><h2>Pagamentos extras</h2><p>Todos os pagamentos extras reduzem o principal.</p></div>
           </div>
 
           <div class="fields-grid">
@@ -83,15 +83,15 @@
             <div class="field field-full">
               <label for="annual-extra">Extra uma vez por ano</label>
               <div class="input-prefix"><span>R$</span><input id="annual-extra" inputmode="decimal"></div>
-              <small class="field-help">Aplicado a cada 12 meses.</small>
             </div>
 
             <div class="field">
               <label for="one-time-extra">Pagamento único</label>
               <div class="input-prefix"><span>R$</span><input id="one-time-extra" inputmode="decimal"></div>
             </div>
+
             <div class="field">
-              <label for="one-time-month">Quando será pago?</label>
+              <label for="one-time-month">Mês do pagamento único</label>
               <div class="input-suffix"><input id="one-time-month" type="number" min="1"><span>mês</span></div>
             </div>
           </div>
@@ -112,7 +112,7 @@
           <div class="interest-highlight">
             <span>Economia total de juros</span>
             <strong id="interest-saved">R$ 0,00</strong>
-            <small>POR CAUSA DO PAGAMENTO EXTRA</small>
+            <small>Total Interest Savings</small>
           </div>
 
           <div class="time-highlight">
